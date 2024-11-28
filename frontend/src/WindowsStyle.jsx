@@ -1,6 +1,6 @@
 import React from 'react';
 import { Quit, WindowMinimise } from '../wailsjs/runtime/runtime';
-import "./XP.css/xp-namespaced.css";
+import "./XP.css/XP-namespaced.css";
 import "./XP.css/98-namespaced.css";
 import "./WindowsStyle98.css";
 
