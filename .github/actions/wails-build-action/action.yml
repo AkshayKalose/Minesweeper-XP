@@ -151,12 +151,12 @@ runs:
     - name: Build Windows App
       if: inputs.build == 'true' && runner.os == 'Windows' && inputs.nsis == 'false'
       working-directory: ${{ inputs.app-working-directory }}
-      run: wails build --platform ${{inputs.build-platform}} -webview2 ${{inputs.wails-build-webview2}} -o '${{inputs.build-name}}'
+      run: wails build --platform ${{inputs.build-platform}} -webview2 ${{inputs.wails-build-webview2}} -o '${{inputs.build-name}}.exe'
       shell: bash
     - name: Build Windows App + Installer
       if: inputs.build == 'true' && runner.os == 'Windows' && inputs.nsis == 'true'
       working-directory: ${{ inputs.app-working-directory }}
-      run: wails build --platform ${{inputs.build-platform}} -webview2 ${{inputs.wails-build-webview2}} -nsis -o '${{inputs.build-name}}'
+      run: wails build --platform ${{inputs.build-platform}} -webview2 ${{inputs.wails-build-webview2}} -nsis -o '${{inputs.build-name}}.exe'
       shell: bash
     - name: Add macOS perms
       if: inputs.build == 'true' && runner.os == 'macOS'
