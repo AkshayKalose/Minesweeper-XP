@@ -158,6 +158,9 @@ function MineSweeper({
   sameTouchPos,
   lastTouch,
   platform,
+  setWindowTitleWidth,
+  style,
+  setStyle,
 }) {
   const [state, dispatch] = useReducer(
     reducer,
@@ -249,6 +252,9 @@ function MineSweeper({
       sameTouchPos={sameTouchPos}
       lastTouch={lastTouch}
       platform={platform}
+      setWindowTitleWidth={setWindowTitleWidth}
+      style={style}
+      setStyle={setStyle}
     />
   );
 }

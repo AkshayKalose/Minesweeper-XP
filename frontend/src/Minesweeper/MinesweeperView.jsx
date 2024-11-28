@@ -31,6 +31,9 @@ import digit8 from '../assets/digit8.png';
 import digit9 from '../assets/digit9.png';
 import digit_ from '../assets/digit-.png';
 
+import { WindowSetSize } from '../../wailsjs/runtime';
+import { BEGINNER_SIZE, EXPERT_SIZE, INTERMEDIATE_SIZE } from '../windowSizes';
+
 const digits = [
   digit0,
   digit1,
@@ -88,6 +91,9 @@ function MineSweeperView({
   openingCeils,
   sameTouchPos,
   lastTouch,
+  setWindowTitleWidth,
+  style,
+  setStyle,
 }) {
   const face = useRef(null);
   const dropDown = useRef(null);
@@ -203,6 +209,39 @@ function MineSweeperView({
       window.removeEventListener('touchend', onTouchEndDropdown);
     };
   }, []);
+
+  useEffect(() => {
+    // Increase the height or width of the window to when the menus are open.
+    if (difficulty === 'Beginner') {
+      if (openOption === 'Game') {
+        WindowSetSize(BEGINNER_SIZE.width, BEGINNER_SIZE.height + 64);
+      } else if (openOption === 'Help') {
+        WindowSetSize(BEGINNER_SIZE.width + 64, BEGINNER_SIZE.height);
+      } else {
+        WindowSetSize(BEGINNER_SIZE.width, BEGINNER_SIZE.height);
+      }
+    }
+  }, [openOption]);
+
+  useEffect(() => {
+    // Change window size when the difficulty changes.
+    if (difficulty === 'Beginner') {
+      WindowSetSize(BEGINNER_SIZE.width, BEGINNER_SIZE.height + 64); // TODO: Remove the extra height, if closing the open menu.
+      setWindowTitleWidth(BEGINNER_SIZE.width);
+    } else if (difficulty === 'Intermediate') {
+      WindowSetSize(INTERMEDIATE_SIZE.width, INTERMEDIATE_SIZE.height);
+      setWindowTitleWidth(INTERMEDIATE_SIZE.width);
+    } else if (difficulty === 'Expert') {
+      WindowSetSize(EXPERT_SIZE.width, EXPERT_SIZE.height);
+      setWindowTitleWidth(EXPERT_SIZE.width);
+    }
+  }, [difficulty]);
+
+  useEffect(() => {
+    // Switch the theme when style changes.
+    document.getElementsByTagName('html')[0].setAttribute('data-theme', style === 0 ? 'xp' : '98');
+  }, [style]);
+
   return (
     <div className={className} onContextMenu={e => e.preventDefault()}>
       <div className="mine__drop-downs" ref={dropDown}>
@@ -336,13 +375,41 @@ function MineSweeperView({
               <span className="mine__drop-down__hot-key" />
               <div className="mine__drop-down__arrow" />
             </div>
+            <div className="mine__drop-down__separator" />
+            <div className="mine__drop-down__row"
+              onMouseUp={() => setStyle(0)}
+              onTouchStart={() => setStyle(0)}
+            >
+              <div className="mine__drop-down__check">
+                { style === 0 &&
+                  <img src={checked} alt="checked" />
+                }
+              </div>
+              <span>Windows XP Style</span>
+              <span className="mine__drop-down__hot-key" />
+              <div className="mine__drop-down__arrow" />
+            </div>
+            <div className="mine__drop-down__row"
+              onMouseUp={() => setStyle(1)}
+              onTouchStart={() => setStyle(1)}
+            >
+              <div className="mine__drop-down__check">
+                { style === 1 &&
+                  <img src={checked} alt="checked" />
+                }
+              </div>
+              <span>Windows 98 Style</span>
+              <span className="mine__drop-down__hot-key" />
+              <div className="mine__drop-down__arrow" />
+            </div>
+            <div className="mine__drop-down__separator" />
             <div className="mine__drop-down__row">
               <div className="mine__drop-down__check" />
               <a
                 className="mine__drop-down__text"
-                href="https://github.com/ShizukuIchi/minesweeper"
+                href="https://git.new/Minesweeper-XP"
               >
-                Github
+                GitHub
               </a>
               <span className="mine__drop-down__hot-key" />
               <div className="mine__drop-down__arrow" />
@@ -374,10 +441,10 @@ function MineSweeperView({
             {renderDigits(remainMines())}
           </div>
           <div className="mine__face__outer">
-            <button ref={face} className="mine__face" onClick={() => onReset()}>
+            <div ref={face} className="mine__face" onClick={() => onReset()}>
               {statusFace()}
               <img alt="smile" src={smile} />
-            </button>
+            </div>
           </div>
           <div className="mine__digits__outer">{renderDigits(seconds)}</div>
         </div>

@@ -1,0 +1,7 @@
+[data-theme="98"] .title-bar-controls button[aria-label=Maximize]:disabled {
+    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg width='10' height='10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 0H0v9h9V0zM8 2H1v6h7V2z' fill='%23808080'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M1 2H8V3H2V8H1V2z' fill='%23FFFFFF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M9 0H10V10H0V9H9V0z' fill='%23FFFFFF'/%3E%3C/svg%3E");
+}
+
+[data-theme="98"] .mine__top-bar {
+    background-color: rgb(192, 192, 192) !important;
+}
