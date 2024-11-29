@@ -31,7 +31,7 @@ import digit8 from '../assets/digit8.png';
 import digit9 from '../assets/digit9.png';
 import digit_ from '../assets/digit-.png';
 
-import { WindowSetSize } from '../../wailsjs/runtime';
+import { BrowserOpenURL, WindowSetSize } from '../../wailsjs/runtime';
 import { BEGINNER_SIZE, EXPERT_SIZE, INTERMEDIATE_SIZE } from '../windowSizes';
 
 const digits = [
@@ -407,7 +407,8 @@ function MineSweeperView({
               <div className="mine__drop-down__check" />
               <a
                 className="mine__drop-down__text"
-                href="https://git.new/Minesweeper-XP"
+                href="#"
+                onClick={() => {BrowserOpenURL("https://git.new/Minesweeper-XP")}}
               >
                 GitHub
               </a>
