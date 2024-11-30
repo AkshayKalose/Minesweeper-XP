@@ -16,8 +16,8 @@ Experience the classic Minesweeper XP (+ 98) on macOS, Windows, and Linux!
 
 |            | macOS         | Windows       | Linux            |
 |------------|---------------|---------------|------------------|
-| Standalone | [Download .zip](https://github.com/AkshayKalose/Minesweeper-XP/releases/download/latest/Minesweeper-XP-macOS-universal.app.zip) | [Download .zip](https://github.com/AkshayKalose/Minesweeper-XP/releases/download/latest/Minesweeper-XP-windows-amd64.zip) | [Download .tar.gz](https://github.com/AkshayKalose/Minesweeper-XP/releases/download/latest/Minesweeper-XP-linux-amd64.tar.gz) |
-| Installer  | [Download .pkg](https://github.com/AkshayKalose/Minesweeper-XP/releases/download/latest/Minesweeper-XP-macOS-universal-installer.pkg) | [Download .exe](https://github.com/AkshayKalose/Minesweeper-XP/releases/download/latest/Minesweeper-XP-windows-amd64-installer.exe) |                  |
+| Standalone | [Download .zip](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-macOS-universal.app.zip) | [Download .zip](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-windows-amd64.zip) | [Download .tar.gz](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-linux-amd64.tar.gz) |
+| Installer  | [Download .pkg](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-macOS-universal-installer.pkg) | [Download .exe](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-windows-amd64-installer.exe) |                  |
 
 ### macOS
 For macOS, the app is currently not signed nor notarized. In order to open the application and avoid the `"Minesweeper XP.app" Not Opened` popup, you will need to open the Terminal application and run one of the following commands on the file you downloaded:
