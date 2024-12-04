@@ -71,7 +71,7 @@ runs:
       run: |
         brew install create-dmg
         mkdir ./build/bin/dmg-workspace
-        cp './build/bin/${{ inputs.build-name }}.app' './build/bin/dmg-workspace/${{ inputs.build-name }}.app' 
+        ditto './build/bin/${{ inputs.build-name }}.app' './build/bin/dmg-workspace/${{ inputs.build-name }}.app' 
         create-dmg \
           --volname "Install ${{ inputs.build-name }}" \
           --window-pos 200 120 \
