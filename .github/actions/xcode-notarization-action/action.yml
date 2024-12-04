@@ -44,20 +44,22 @@ runs:
       run: sudo xcode-select -s ${{ inputs.xcode-path }}
       shell: bash
     - name: Prepare Notarization Credentials
+      id: create-keychain
       run: |
         # create temporary keychain
-        KEYCHAIN_PATH=./sign_and_notarize_temp
+        KEYCHAIN_PATH=$RUNNER_TEMP/notarization.keychain-db
         KEYCHAIN_PASS=$(uuidgen)
+        echo "keychain-path=$(echo $KEYCHAIN_PATH)\n" >> $GITHUB_OUTPUT
         security create-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
         security set-keychain-settings -lut 900 ${KEYCHAIN_PATH}
         security unlock-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
         # import credentials from secrets
-        xcrun notarytool store-credentials "${{ inputs.keychain-profile }}" --apple-id "${{ inputs.apple-id }}" --password "${{ inputs.password }}" --team-id "${{ inputs.team-id }}" --keychain "${KEYCHAIN_PATH}".keychain
+        xcrun notarytool store-credentials "${{ inputs.keychain-profile }}" --apple-id "${{ inputs.apple-id }}" --password "${{ inputs.password }}" --team-id "${{ inputs.team-id }}" --keychain "${KEYCHAIN_PATH}"
       shell: bash
     - name: Import codesigning certificates
       uses: apple-actions/import-codesign-certs@v3
       with: 
-        keychain: ./sign_and_notarize_temp
+        keychain: ${{ steps.create-keychain.outputs.keychain-path }}
         create-keychain: false
         p12-file-base64: ${{ inputs.p12-file-base64 }}
         p12-password: ${{ inputs.p12-password }}
@@ -84,7 +86,7 @@ runs:
       shell: bash
     - name: Notarize ${{ inputs.build-name }}.dmg
       run: |
-        KEYCHAIN_PATH=./sign_and_notarize_temp
+        KEYCHAIN_PATH=$RUNNER_TEMP/notarization.keychain-db
         xcrun notarytool submit './build/bin/${{ inputs.build-name }}.dmg' --keychain-profile "${{ inputs.keychain-profile }}" --keychain "${KEYCHAIN_PATH}" --wait
       shell: bash
     - name: Staple ${{ inputs.build-name }}.dmg
@@ -93,6 +95,6 @@ runs:
       shell: bash
     - name: Cleanup
       if: ${{ always() }}
-      run: security delete-keychain ./sign_and_notarize_temp
+      run: security delete-keychain $RUNNER_TEMP/notarization.keychain-db
       shell: bash
       continue-on-error: true
