@@ -88,6 +88,18 @@ inputs:
     description: "MacOS Installer Certificate Password"
     required: false
     default: ''
+  sign-macos-apple-id:
+    description: "Apple ID"
+    required: false
+    default: ''
+  sign-macos-apple-password:
+    description: "Apple ID Password"
+    required: false
+    default: ''
+  sign-macos-apple-team-id:
+    description: "Apple Team ID"
+    required: false
+    default: ''
   sign-windows-cert:
     description: "Windows Signing Certificate"
     required: false
@@ -225,9 +237,9 @@ runs:
       with:
         app-path: '${{ inputs.app-working-directory }}/build/bin/${{inputs.build-name}}.app'
         build-name: ${{ inputs.build-name }}
-        apple-id: ${{ secrets.APPLE_ID }}
-        password: ${{ secrets.APPLE_PASSWORD }}
-        team-id: ${{ secrets.APPLE_TEAM_ID }}
+        apple-id: ${{ inputs.sign-macos-apple-id }}
+        password: ${{ inputs.sign-macos-apple-password }}
+        team-id: ${{ inputs.sign-macos-apple-team-id }}
         xcode-path: '/Applications/Xcode.app'
     # Windows signing
     - name: Sign Windows binaries

@@ -39,3 +39,6 @@ jobs:
           build-platform: ${{ matrix.build.platform }}
           package: true
           go-version: '1.23'
+          sign-macos-apple-id: ${{ secrets.APPLE_ID }}
+          sign-macos-apple-password: ${{ secrets.APPLE_PASSWORD }}
+          sign-macos-apple-team-id: ${{ secrets.APPLE_TEAM_ID }}
