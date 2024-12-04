@@ -108,6 +108,12 @@ inputs:
     description: "Windows Signing Certificate Password"
     required: false
     default: ''
+  p12-file-base64:
+    description: 'The certificates in a PKCS12 file encoded as a base64 string.'
+    required: true
+  p12-password:
+    description: 'The password used to import the PKCS12 file.'
+    required: true
 
 runs:
   using: "composite"
@@ -241,6 +247,8 @@ runs:
         password: ${{ inputs.sign-macos-apple-id-password }}
         team-id: ${{ inputs.sign-macos-apple-team-id }}
         xcode-path: '/Applications/Xcode.app'
+        p12-file-base64: ${{ inputs.p12-file-base64 }}
+        p12-password: ${{ inputs.p12-password }}
     # Windows signing
     - name: Sign Windows binaries
       shell: powershell

@@ -42,3 +42,5 @@ jobs:
           sign-macos-apple-id: ${{ secrets.APPLE_ID }}
           sign-macos-apple-id-password: ${{ secrets.APPLE_PASSWORD }}
           sign-macos-apple-team-id: ${{ secrets.APPLE_TEAM_ID }}
+          p12-file-base64: ${{ secrets.P12_FILE_BASE64 }}
+          p12-password: ${{ secrets.P12_PASSWORD }}

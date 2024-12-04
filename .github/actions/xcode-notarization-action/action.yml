@@ -30,6 +30,12 @@ inputs:
     description: 'Path of the Xcode version to use'
     required: true
     default: '/Applications/Xcode_13.2.1.app' # available on both macos-11 and macos-12 environments
+  p12-file-base64:
+    description: 'The certificates in a PKCS12 file encoded as a base64 string.'
+    required: true
+  p12-password:
+    description: 'The password used to import the PKCS12 file.'
+    required: true
 
 runs:
   using: 'composite'
@@ -48,9 +54,16 @@ runs:
         # import credentials from secrets
         xcrun notarytool store-credentials "${{ inputs.keychain-profile }}" --apple-id "${{ inputs.apple-id }}" --password "${{ inputs.password }}" --team-id "${{ inputs.team-id }}" --keychain "${KEYCHAIN_PATH}"
       shell: bash
+    - name: Import codesigning certificates
+      uses: apple-actions/import-codesign-certs@v3
+      with: 
+        keychain: $RUNNER_TEMP/notarization.keychain-db
+        create-keychain: false
+        p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
+        p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
     - name: Codesign .app
       run: |
-        codesign -f -s "Developer ID Application" -o runtime --keychain "${KEYCHAIN_PATH}" './build/bin/${{ inputs.build-name }}.app'
+        codesign -f -s "${{ inputs.team-id }}" -o runtime --keychain "${KEYCHAIN_PATH}" './build/bin/${{ inputs.build-name }}.app'
       shell: bash
     - name: Create .dmg
       run: |
