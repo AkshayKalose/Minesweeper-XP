@@ -47,9 +47,9 @@ runs:
       id: create-keychain
       run: |
         # create temporary keychain
-        KEYCHAIN_PATH=$RUNNER_TEMP/notarization.keychain
+        KEYCHAIN_PATH=$RUNNER_TEMP/notarization
         KEYCHAIN_PASS=$(uuidgen)
-        echo "keychain-path-output=$(echo $RUNNER_TEMP)/notarization" >> $GITHUB_OUTPUT
+        echo "keychain-path-output=$(echo $KEYCHAIN_PATH)" >> $GITHUB_OUTPUT
         security create-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
         security set-keychain-settings -lut 900 ${KEYCHAIN_PATH}
         security unlock-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
@@ -86,15 +86,21 @@ runs:
       shell: bash
     - name: Notarize ${{ inputs.build-name }}.dmg
       run: |
-        KEYCHAIN_PATH=$RUNNER_TEMP/notarization.keychain
+        KEYCHAIN_PATH=$RUNNER_TEMP/notarization
         xcrun notarytool submit './build/bin/${{ inputs.build-name }}.dmg' --keychain-profile "${{ inputs.keychain-profile }}" --keychain "${KEYCHAIN_PATH}" --wait
       shell: bash
     - name: Staple ${{ inputs.build-name }}.dmg
       if: ${{ inputs.staple == 'true' }}
       run: xcrun stapler staple './build/bin/${{ inputs.build-name }}.dmg'
       shell: bash
+    - name: Staple .app and create ${{ inputs.build-name }}.app.zip
+      if: ${{ inputs.staple == 'true' }}
+      run: |
+        xcrun stapler staple './build/bin/${{ inputs.build-name }}.app'
+        ditto -c -k --keepParent './build/bin/${{inputs.build-name}}.app' './build/bin/${{inputs.build-name}}.app.zip'
+      shell: bash
     - name: Cleanup
       if: ${{ always() }}
-      run: security delete-keychain $RUNNER_TEMP/notarization.keychain
+      run: security delete-keychain $RUNNER_TEMP/notarization
       shell: bash
       continue-on-error: true
