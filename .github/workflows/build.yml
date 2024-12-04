@@ -22,7 +22,7 @@ jobs:
           #   os: 'windows-latest'
           - name: 'Minesweeper XP'
             platform:  'darwin/universal'
-            os: 'macos-15'
+            os: 'macos-latest'
 
     runs-on: ${{ matrix.build.os }}
     steps:
