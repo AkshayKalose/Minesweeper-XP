@@ -14,12 +14,12 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          - name: 'Minesweeper XP'
-            platform:  'linux/amd64'
-            os: 'ubuntu-latest'
-          - name: 'Minesweeper XP'
-            platform:  'windows/amd64'
-            os: 'windows-latest'
+          # - name: 'Minesweeper XP'
+          #   platform:  'linux/amd64'
+          #   os: 'ubuntu-latest'
+          # - name: 'Minesweeper XP'
+          #   platform:  'windows/amd64'
+          #   os: 'windows-latest'
           - name: 'Minesweeper XP'
             platform:  'darwin/universal'
             os: 'macos-15'
