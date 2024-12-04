@@ -49,7 +49,7 @@ runs:
         # create temporary keychain
         KEYCHAIN_PATH=$RUNNER_TEMP/notarization.keychain-db
         KEYCHAIN_PASS=$(uuidgen)
-        echo "keychain-path=$(echo $KEYCHAIN_PATH)\n" >> $GITHUB_OUTPUT
+        echo "keychain-path-output=$(echo $KEYCHAIN_PATH)\n" >> $GITHUB_OUTPUT
         security create-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
         security set-keychain-settings -lut 900 ${KEYCHAIN_PATH}
         security unlock-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
@@ -59,7 +59,7 @@ runs:
     - name: Import codesigning certificates
       uses: apple-actions/import-codesign-certs@v3
       with: 
-        keychain: ${{ steps.create-keychain.outputs.keychain-path }}
+        keychain: ${{ steps.create-keychain.outputs.keychain-path-output }}
         create-keychain: false
         p12-file-base64: ${{ inputs.p12-file-base64 }}
         p12-password: ${{ inputs.p12-password }}
