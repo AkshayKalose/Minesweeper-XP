@@ -46,7 +46,7 @@ runs:
     - name: Prepare Notarization Credentials
       run: |
         # create temporary keychain
-        KEYCHAIN_PATH=sign_and_notarize_temp
+        KEYCHAIN_PATH=./sign_and_notarize_temp
         KEYCHAIN_PASS=$(uuidgen)
         security create-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
         security set-keychain-settings -lut 900 ${KEYCHAIN_PATH}
@@ -57,7 +57,7 @@ runs:
     - name: Import codesigning certificates
       uses: apple-actions/import-codesign-certs@v3
       with: 
-        keychain: sign_and_notarize_temp
+        keychain: ./sign_and_notarize_temp
         create-keychain: false
         p12-file-base64: ${{ inputs.p12-file-base64 }}
         p12-password: ${{ inputs.p12-password }}
@@ -84,7 +84,7 @@ runs:
       shell: bash
     - name: Notarize ${{ inputs.build-name }}.dmg
       run: |
-        KEYCHAIN_PATH=sign_and_notarize_temp
+        KEYCHAIN_PATH=./sign_and_notarize_temp
         xcrun notarytool submit './build/bin/${{ inputs.build-name }}.dmg' --keychain-profile "${{ inputs.keychain-profile }}" --keychain "${KEYCHAIN_PATH}" --wait
       shell: bash
     - name: Staple ${{ inputs.build-name }}.dmg
@@ -93,6 +93,6 @@ runs:
       shell: bash
     - name: Cleanup
       if: ${{ always() }}
-      run: security delete-keychain sign_and_notarize_temp
+      run: security delete-keychain ./sign_and_notarize_temp
       shell: bash
       continue-on-error: true
