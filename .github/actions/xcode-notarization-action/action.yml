@@ -1,0 +1,85 @@
+# Modified from cocoalibs/xcode-notarization-action@1.0.3
+name: 'Xcode Codesign, Notarization, and Staple Action'
+description: 'Codesigns, notarizes, and staples an .app to produce a .zip and .dmg'
+branding:
+  icon: 'award'
+  color: 'green'
+
+inputs:
+  build-name:
+    description: 'Path of the software to notarize. Globbing is supported'
+    requires: true
+  staple:
+    description: 'Whether to run `stapler staple`'
+    requires: true
+    default: 'true'
+  keychain-profile:
+    description: 'notarytool --keychain-profile parameter'
+    required: true
+    default: 'notary'
+  apple-id:
+    description: 'notarytool --apple-id parameter'
+    required: true
+  password:
+    description: 'notarytool --password parameter'
+    required: true
+  team-id:
+    description: 'notarytool --team-id parameter'
+    required: true
+  xcode-path:
+    description: 'Path of the Xcode version to use'
+    required: true
+    default: '/Applications/Xcode_13.2.1.app' # available on both macos-11 and macos-12 environments
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Xcode
+      run: sudo xcode-select -s ${{ inputs.xcode-path }}
+      shell: bash
+    - name: Prepare Notarization Credentials
+      run: |
+        # create temporary keychain
+        KEYCHAIN_PATH=$RUNNER_TEMP/notarization.keychain-db
+        KEYCHAIN_PASS=$(uuidgen)
+        security create-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
+        security set-keychain-settings -lut 900 ${KEYCHAIN_PATH}
+        security unlock-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
+        # import credentials from secrets
+        xcrun notarytool store-credentials "${{ inputs.keychain-profile }}" --apple-id "${{ inputs.apple-id }}" --password "${{ inputs.password }}" --team-id "${{ inputs.team-id }}" --keychain "${KEYCHAIN_PATH}"
+      shell: bash
+    - name: Codesign .app
+      run: |
+        codesign -f -s "${{ inputs.team-id }}" -o runtime './build/bin/${{ inputs.build-name }}.app'
+      shell: bash
+    - name: Create .dmg
+      run: |
+        brew install create-dmg
+        mkdir ./build/bin/dmg-workspace
+        cp './build/bin/${{ inputs.build-name }}.app' './build/bin/dmg-workspace/${{ inputs.build-name }}.app' 
+        create-dmg \
+          --volname "Install ${{ inputs.build-name }}" \
+          --window-pos 200 120 \
+          --window-size 800 400 \
+          --icon-size 100 \
+          --icon "${{ inputs.build-name }}.app" 200 190 \
+          --hide-extension "${{ inputs.build-name }}.app" \
+          --app-drop-link 600 185 \
+          --codesign "${{ inputs.team-id }}" \
+          "${{ inputs.build-name }}.dmg" \
+          "./build/bin/dmg-workspace"
+      shell: bash
+    - name: Notarize ${{ inputs.build-name }}.dmg
+      run: |
+        KEYCHAIN_PATH=$RUNNER_TEMP/notarization.keychain-db
+        xcrun notarytool submit './build/bin/${{ inputs.build-name }}.dmg' --keychain-profile "${{ inputs.keychain-profile }}" --keychain "${KEYCHAIN_PATH}" --wait
+      shell: bash
+    - name: Staple ${{ inputs.build-name }}.dmg
+      if: ${{ inputs.staple == 'true' }}
+      run: xcrun stapler staple './build/bin/${{ inputs.build-name }}.dmg'
+      shell: bash
+    - name: Cleanup
+      if: ${{ always() }}
+      run: security delete-keychain $RUNNER_TEMP/notarization.keychain-db
+      shell: bash
+      continue-on-error: true

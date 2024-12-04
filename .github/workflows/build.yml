@@ -1,10 +1,7 @@
 name: Wails build
 
 on:
-  push:
-    tags:
-      # Match any new tag starting with v
-      - 'v*'
+  pull_request:
 
 env:
   # Necessary for most environments as build failure can occur due to OOM issues
@@ -25,7 +22,7 @@ jobs:
             os: 'windows-latest'
           - name: 'Minesweeper XP'
             platform:  'darwin/universal'
-            os: 'macos-latest'
+            os: 'macos-15'
 
     runs-on: ${{ matrix.build.os }}
     steps:
