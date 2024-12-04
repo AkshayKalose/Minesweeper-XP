@@ -81,7 +81,7 @@ runs:
           --hide-extension "${{ inputs.build-name }}.app" \
           --app-drop-link 600 185 \
           --codesign "${{ inputs.team-id }}" \
-          "${{ inputs.build-name }}.dmg" \
+          "./build/bin/${{ inputs.build-name }}.dmg" \
           "./build/bin/dmg-workspace"
       shell: bash
     - name: Notarize ${{ inputs.build-name }}.dmg
