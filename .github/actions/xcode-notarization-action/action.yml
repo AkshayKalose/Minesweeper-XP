@@ -50,7 +50,7 @@ runs:
       shell: bash
     - name: Codesign .app
       run: |
-        codesign -f -s "${{ inputs.team-id }}" -o runtime './build/bin/${{ inputs.build-name }}.app'
+        codesign -f -s "Developer ID Application" -o runtime --keychain "${KEYCHAIN_PATH}" './build/bin/${{ inputs.build-name }}.app'
       shell: bash
     - name: Create .dmg
       run: |
