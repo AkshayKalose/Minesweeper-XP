@@ -59,8 +59,8 @@ runs:
       with: 
         keychain: $RUNNER_TEMP/notarization.keychain-db
         create-keychain: false
-        p12-file-base64: ${{ secrets.CERTIFICATES_P12 }}
-        p12-password: ${{ secrets.CERTIFICATES_P12_PASSWORD }}
+        p12-file-base64: ${{ inputs.p12-file-base64 }}
+        p12-password: ${{ inputs.p12-password }}
     - name: Codesign .app
       run: |
         codesign -f -s "${{ inputs.team-id }}" -o runtime --keychain "${KEYCHAIN_PATH}" './build/bin/${{ inputs.build-name }}.app'

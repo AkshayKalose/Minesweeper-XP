@@ -151,10 +151,10 @@ runs:
       if: inputs.build == 'true' && runner.os == 'Linux'
       run: sudo apt-get update && sudo apt-get install libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
       shell: bash
-    - name: Install macOS Wails deps
-      if: runner.os == 'macOS'
-      run: brew install mitchellh/gon/gon
-      shell: bash
+    # - name: Install macOS Wails deps
+    #   if: runner.os == 'macOS'
+    #   run: brew install mitchellh/gon/gon
+    #   shell: bash
     # Building step
     - name: Build App
       if: inputs.build == 'true' && runner.os == 'macOS'
