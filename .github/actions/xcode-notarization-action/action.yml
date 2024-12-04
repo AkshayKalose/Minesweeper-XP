@@ -52,7 +52,7 @@ runs:
         security set-keychain-settings -lut 900 ${KEYCHAIN_PATH}
         security unlock-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
         # import credentials from secrets
-        xcrun notarytool store-credentials "${{ inputs.keychain-profile }}" --apple-id "${{ inputs.apple-id }}" --password "${{ inputs.password }}" --team-id "${{ inputs.team-id }}" --keychain "${KEYCHAIN_PATH}"
+        xcrun notarytool store-credentials "${{ inputs.keychain-profile }}" --apple-id "${{ inputs.apple-id }}" --password "${{ inputs.password }}" --team-id "${{ inputs.team-id }}" --keychain "${KEYCHAIN_PATH}".keychain
       shell: bash
     - name: Import codesigning certificates
       uses: apple-actions/import-codesign-certs@v3
