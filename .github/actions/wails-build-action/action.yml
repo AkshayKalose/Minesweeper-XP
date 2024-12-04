@@ -92,7 +92,7 @@ inputs:
     description: "Apple ID"
     required: false
     default: ''
-  sign-macos-apple-password:
+  sign-macos-apple-id-password:
     description: "Apple ID Password"
     required: false
     default: ''
@@ -238,7 +238,7 @@ runs:
         app-path: '${{ inputs.app-working-directory }}/build/bin/${{inputs.build-name}}.app'
         build-name: ${{ inputs.build-name }}
         apple-id: ${{ inputs.sign-macos-apple-id }}
-        password: ${{ inputs.sign-macos-apple-password }}
+        password: ${{ inputs.sign-macos-apple-id-password }}
         team-id: ${{ inputs.sign-macos-apple-team-id }}
         xcode-path: '/Applications/Xcode.app'
     # Windows signing
