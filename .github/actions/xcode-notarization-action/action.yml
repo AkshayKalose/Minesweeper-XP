@@ -49,7 +49,7 @@ runs:
         # create temporary keychain
         KEYCHAIN_PATH=$RUNNER_TEMP/notarization.keychain-db
         KEYCHAIN_PASS=$(uuidgen)
-        echo "keychain-path-output=$(echo $KEYCHAIN_PATH)\n" >> $GITHUB_OUTPUT
+        echo "keychain-path-output=$(echo $KEYCHAIN_PATH)" >> $GITHUB_OUTPUT
         security create-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
         security set-keychain-settings -lut 900 ${KEYCHAIN_PATH}
         security unlock-keychain -p "${KEYCHAIN_PASS}" ${KEYCHAIN_PATH}
