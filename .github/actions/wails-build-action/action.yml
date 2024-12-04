@@ -286,7 +286,7 @@ runs:
       run: |
         mkdir build/bin/publish
         mv 'build/bin/${{ inputs.build-name }}.dmg' "build/bin/publish/$(echo "${{ inputs.build-name }}" | sed "s/ /-/g")-macOS-universal-installer.dmg"
-      # mv 'build/bin/${{ inputs.build-name }}.app.zip' "build/bin/publish/$(echo "${{ inputs.build-name }}" | sed "s/ /-/g")-macOS-universal.app.zip"
+        mv 'build/bin/${{ inputs.build-name }}.app.zip' "build/bin/publish/$(echo "${{ inputs.build-name }}" | sed "s/ /-/g")-macOS-universal.app.zip"
       # mv 'build/bin/${{ inputs.build-name }}.pkg' "build/bin/publish/$(echo "${{ inputs.build-name }}" | sed "s/ /-/g")-macOS-universal-installer.pkg"
     - uses: actions/upload-artifact@v3
       if: inputs.package == 'true'
