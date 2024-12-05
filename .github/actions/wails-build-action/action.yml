@@ -182,7 +182,7 @@ runs:
       working-directory: ${{ inputs.app-working-directory }}
       run: chmod +x build/bin/*
       shell: bash
-    # # Package and Sign MacOS
+    # Package and Sign MacOS
     - name: Codesign, notarize, and staple the macOS build (producing a .zip and .dmg)
       uses: ./.github/actions/xcode-notarization-action
       id: notarize
