@@ -231,7 +231,7 @@ function MineSweeperView({
   useEffect(() => {
     // Change window size when the difficulty changes.
     if (difficulty === 'Beginner') {
-      WindowSetSize(BEGINNER_SIZE.width, BEGINNER_SIZE.height + 64); // TODO: Remove the extra height, if closing the open menu.
+      WindowSetSize(BEGINNER_SIZE.width, BEGINNER_SIZE.height + 64); // TODO: Remove the extra height, if closing the open menu on difficulty selection.
       setWindowTitleWidth(BEGINNER_SIZE.width);
     } else if (difficulty === 'Intermediate') {
       WindowSetSize(INTERMEDIATE_SIZE.width, INTERMEDIATE_SIZE.height);
@@ -244,7 +244,7 @@ function MineSweeperView({
 
   useEffect(() => {
     // Switch the theme when style changes.
-    document.getElementsByTagName('html')[0].setAttribute('data-theme', style === 0 ? 'xp' : '98');
+    document.getElementsByTagName('html')[0].setAttribute('data-theme', ['XP', '98', '3.1'][style]);
   }, [style]);
 
   return (
@@ -404,6 +404,19 @@ function MineSweeperView({
                 }
               </div>
               <span>Windows 98 Style</span>
+              <span className="mine__drop-down__hot-key" />
+              <div className="mine__drop-down__arrow" />
+            </div>
+            <div className="mine__drop-down__row"
+              onMouseUp={() => setStyle(2)}
+              onTouchStart={() => setStyle(2)}
+            >
+              <div className="mine__drop-down__check">
+                { style === 2 &&
+                  <img src={checked} alt="checked" />
+                }
+              </div>
+              <span>Windows 3.1 Style</span>
               <span className="mine__drop-down__hot-key" />
               <div className="mine__drop-down__arrow" />
             </div>

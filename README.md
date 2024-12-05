@@ -45,6 +45,7 @@ Chording is a feature in Minesweeper which allows you to open up all adjacent un
 
 - https://github.com/ShizukuIchi/minesweeper
 - https://github.com/botoxparty/XP.css
+- https://github.com/nielssp/classic-stylesheets
 
 ### Other related projects
 
@@ -56,6 +57,7 @@ Chording is a feature in Minesweeper which allows you to open up all adjacent un
 #### Libraries
 - https://github.com/1j01/os-gui
 - https://github.com/jdan/98.css
+- https://github.com/khang-nd/7.css
 
 #### Web Applications
 - https://github.com/1j01/jspaint
