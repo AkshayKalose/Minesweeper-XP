@@ -5,31 +5,19 @@
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads-pre/AkshayKalose/Minesweeper-XP/total)
 ![GitHub Downloads (all assets, latest release)](https://img.shields.io/github/downloads-pre/AkshayKalose/Minesweeper-XP/latest/total)
 
-Experience the classic Minesweeper XP (+ 98) on macOS, Windows, and Linux!
+Experience the classic Minesweeper XP (+ 98 and 3.1) on macOS, Windows, and Linux!
 
 *Fun Fact*: After Windows 98, the tiles in Beginner mode increased from 8x8 to 9x9.
 
 ## Demo
-![Demo](./demo/Grey.png)
+![Demo](./demo/Demo.png)
 
 ## Installation
 
 |            | macOS         | Windows       | Linux            |
 |------------|---------------|---------------|------------------|
 | Standalone | [Download .zip](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-macOS-universal.app.zip) | [Download .zip](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-windows-amd64.zip) | [Download .tar.gz](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-linux-amd64.tar.gz) |
-| Installer  | [Download .pkg](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-macOS-universal-installer.pkg) | [Download .exe](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-windows-amd64-installer.exe) |                  |
-
-### macOS
-For macOS, the app is currently not signed nor notarized. In order to open the application and avoid the `"Minesweeper XP.app" Not Opened` popup, you will need to open the Terminal application and run one of the following commands on the file you downloaded:
-
-```
-xattr -d com.apple.quarantine ~/Downloads/Minesweeper-XP-macOS-universal.app.zip
-xattr -d com.apple.quarantine ~/Downloads/Minesweeper-XP-macOS-universal-installer.pkg
-xattr -d com.apple.quarantine ~/Downloads/Minesweeper\ XP.app
-xattr -d com.apple.quarantine /Applications/Minesweeper\ XP.app
-```
-
-Select the appropriate command to run based on the file you downloaded and/or extracted. You will only ever need to run one of these commands at most once, after downloading. The command will remove the `com.apple.quarantine` attribute from the downloaded file.
+| Installer  | [Download .dmg](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-macOS-universal-installer.dmg) | [Download .exe](https://github.com/AkshayKalose/Minesweeper-XP/releases/latest/download/Minesweeper-XP-windows-amd64-installer.exe) |                  |
 
 ## FAQ
 
