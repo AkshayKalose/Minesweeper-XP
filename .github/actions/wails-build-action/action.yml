@@ -90,15 +90,15 @@ inputs:
     default: ''
   sign-macos-apple-id:
     description: "Apple ID"
-    required: false
+    required: true
     default: ''
   sign-macos-apple-id-password:
     description: "Apple ID Password"
-    required: false
+    required: true
     default: ''
   sign-macos-apple-team-id:
     description: "Apple Team ID"
-    required: false
+    required: true
     default: ''
   sign-windows-cert:
     description: "Windows Signing Certificate"
@@ -184,6 +184,7 @@ runs:
       shell: bash
     # Package and Sign MacOS
     - name: Codesign, notarize, and staple the macOS build (producing a .zip and .dmg)
+      if: runner.os == 'macOS'
       uses: ./.github/actions/xcode-notarization-action
       id: notarize
       with:
