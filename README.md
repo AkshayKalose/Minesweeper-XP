@@ -31,6 +31,14 @@ xattr -d com.apple.quarantine /Applications/Minesweeper\ XP.app
 
 Select the appropriate command to run based on the file you downloaded and/or extracted. You will only ever need to run one of these commands at most once, after downloading. The command will remove the `com.apple.quarantine` attribute from the downloaded file.
 
+## FAQ
+
+### How do I perform chording?
+Chording is supported for both mouse and trackpad. With a mouse, you can chord by either **clicking both the left and right buttons** or by **middle clicking the scroll wheel**. With a trackpad, you can chord by holding down at least one of these additional keyboard buttons while left clicking: **Ctrl, Alt, Shift, Meta (Cmd for macOS, Win for Windows)**.
+
+#### What is chording?
+Chording is a feature in Minesweeper which allows you to open up all adjacent unopened tiles relative to an open tile with the number *n*, only if there are also at least *n* adjacent flags. (Basically, with chording, you can flag the unsafe tiles with bombs, and open all the adjacent safe tiles in one click.)
+
 ## Links
 
 ### Built on top of
