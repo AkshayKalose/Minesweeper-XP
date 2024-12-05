@@ -1,7 +1,10 @@
 name: Wails build
 
 on:
-  pull_request:
+  push:
+    tags:
+      # Match any new tag starting with v
+      - 'v*'
 
 env:
   # Necessary for most environments as build failure can occur due to OOM issues
@@ -14,12 +17,12 @@ jobs:
       fail-fast: false
       matrix:
         build:
-          # - name: 'Minesweeper XP'
-          #   platform:  'linux/amd64'
-          #   os: 'ubuntu-latest'
-          # - name: 'Minesweeper XP'
-          #   platform:  'windows/amd64'
-          #   os: 'windows-latest'
+          - name: 'Minesweeper XP'
+            platform:  'linux/amd64'
+            os: 'ubuntu-latest'
+          - name: 'Minesweeper XP'
+            platform:  'windows/amd64'
+            os: 'windows-latest'
           - name: 'Minesweeper XP'
             platform:  'darwin/universal'
             os: 'macos-latest'

@@ -1,6 +1,6 @@
 # Modified from cocoalibs/xcode-notarization-action@1.0.3
-name: 'Xcode Codesign, Notarization, and Staple Action'
-description: 'Codesigns, notarizes, and staples an .app to produce a .zip and .dmg'
+name: 'Xcode Codesign, Notarize, and Staple Action'
+description: 'Given an .app, performs codesigning, notarization, and stapling to produce a .zip and .dmg'
 branding:
   icon: 'award'
   color: 'green'
@@ -63,11 +63,11 @@ runs:
         create-keychain: false
         p12-file-base64: ${{ inputs.p12-file-base64 }}
         p12-password: ${{ inputs.p12-password }}
-    - name: Codesign .app
+    - name: Codesign ${{ inputs.build-name }}.app
       run: |
         codesign -f -s "${{ inputs.team-id }}" -o runtime --keychain "${KEYCHAIN_PATH}" './build/bin/${{ inputs.build-name }}.app'
       shell: bash
-    - name: Create .dmg
+    - name: Create and codesign ${{ inputs.build-name }}.dmg
       run: |
         brew install create-dmg
         mkdir ./build/bin/dmg-workspace
