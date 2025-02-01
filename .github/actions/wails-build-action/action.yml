@@ -150,7 +150,7 @@ runs:
     - name: Install Linux Wails deps
       if: inputs.build == 'true' && runner.os == 'Linux'
       run: |
-        echo "deb http://archive.ubuntu.com/ubuntu jammy main universe" >> /etc/apt/sources.list
+        sudo echo "deb http://archive.ubuntu.com/ubuntu jammy main universe" >> /etc/apt/sources.list
         sudo apt-get update && sudo apt-get install libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
       shell: bash
     # Building step
