@@ -51,3 +51,6 @@ Chording is a feature in Minesweeper which allows you to open up all adjacent un
 - https://github.com/1j01/jspaint
 - https://github.com/ziebelje/minesweeper
 - https://github.com/AlexAegis/minesweeper
+
+### My other apps
+- [789-Zip](https://789-zip.app) - A native macOS app for the 7-Zip archiving utility.
