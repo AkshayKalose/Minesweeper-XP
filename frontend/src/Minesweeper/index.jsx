@@ -172,6 +172,8 @@ function MineSweeper({
   setWindowTitleWidth,
   style,
   setStyle,
+  scale,
+  setScale,
 }) {
   const [state, dispatch] = useReducer(
     reducer,
@@ -270,6 +272,8 @@ function MineSweeper({
       style={style}
       setStyle={setStyle}
       toggleMarks={toggleMarks}
+      scale={scale}
+      setScale={setScale}
     />
   );
 }

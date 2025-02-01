@@ -39,6 +39,7 @@ function App() {
 
   const [windowTitleWidth, setWindowTitleWidth] = React.useState(BEGINNER_SIZE.width);
   const [style, setStyle] = React.useState(0);
+  const [scale, setScale] = React.useState(1);
 
   return (
     <div
@@ -49,6 +50,7 @@ function App() {
             justifyContent: 'flex-start',
             alignItems: 'flex-start',
             height: '100%',
+            overflow: 'hidden'
           }
           : {
             display: 'flex',
@@ -63,7 +65,8 @@ function App() {
           platform === 'desktop'
             ? {
               display: 'inline-block',
-              overflow: 'hidden',
+              transform: `scale(${scale})`,
+              transformOrigin: 'left top',
             }
             : {
               transform: 'scale(1.8)',
@@ -85,6 +88,8 @@ function App() {
             onClose={Quit}
             style={style}
             setStyle={setStyle}
+            scale={scale}
+            setScale={setScale}
           />
         </WindowsStyle>
       </div>

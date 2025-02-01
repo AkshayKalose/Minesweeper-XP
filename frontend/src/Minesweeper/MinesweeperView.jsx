@@ -96,6 +96,8 @@ function MineSweeperView({
   setStyle,
   marks,
   toggleMarks,
+  scale,
+  setScale,
 }) {
   const face = useRef(null);
   const dropDown = useRef(null);
@@ -218,31 +220,46 @@ function MineSweeperView({
   }, []);
 
   useEffect(() => {
-    // Increase the height or width of the window to when the menus are open.
-    if (difficulty === 'Beginner') {
-      if (openOption === 'Game') {
-        WindowSetSize(BEGINNER_SIZE.width, BEGINNER_SIZE.height + 64);
-      } else if (openOption === 'Help') {
-        WindowSetSize(BEGINNER_SIZE.width + 64, BEGINNER_SIZE.height);
-      } else {
-        WindowSetSize(BEGINNER_SIZE.width, BEGINNER_SIZE.height);
-      }
-    }
-  }, [openOption]);
+    let width = 0;
+    let height = 0;
+    let windowTitleWidth = 0;
 
-  useEffect(() => {
     // Change window size when the difficulty changes.
     if (difficulty === 'Beginner') {
-      WindowSetSize(BEGINNER_SIZE.width, BEGINNER_SIZE.height + 64); // TODO: Remove the extra height, if closing the open menu on difficulty selection.
-      setWindowTitleWidth(BEGINNER_SIZE.width);
+      width = Math.ceil(scale * BEGINNER_SIZE.width);
+      height = Math.ceil(scale * (BEGINNER_SIZE.height + 64));
+      // TODO: Remove the extra height, if closing the open menu on difficulty selection.
+      windowTitleWidth = BEGINNER_SIZE.width;
     } else if (difficulty === 'Intermediate') {
-      WindowSetSize(INTERMEDIATE_SIZE.width, INTERMEDIATE_SIZE.height);
-      setWindowTitleWidth(INTERMEDIATE_SIZE.width);
+      width = Math.ceil(scale * INTERMEDIATE_SIZE.width);
+      height = Math.ceil(scale * INTERMEDIATE_SIZE.height);
+      windowTitleWidth = INTERMEDIATE_SIZE.width;
     } else if (difficulty === 'Expert') {
-      WindowSetSize(EXPERT_SIZE.width, EXPERT_SIZE.height);
-      setWindowTitleWidth(EXPERT_SIZE.width);
+      width = Math.ceil(scale * EXPERT_SIZE.width);
+      height = Math.ceil(scale * EXPERT_SIZE.height);
+      windowTitleWidth = EXPERT_SIZE.width;
     }
-  }, [difficulty]);
+
+    if (openOption !== null) {
+      // Increase the height or width of the window to when the menus are open.
+      if (difficulty === 'Beginner') {
+        if (openOption === 'Game') {
+          width = Math.ceil(scale * BEGINNER_SIZE.width);
+          height = Math.ceil(scale * (BEGINNER_SIZE.height + 64));
+        } else if (openOption === 'Help') {
+          width = Math.ceil(scale * (BEGINNER_SIZE.width + 64));
+          height = Math.ceil(scale * (BEGINNER_SIZE.height + 32));
+        } else {
+          width = Math.ceil(scale * BEGINNER_SIZE.width);
+          height = Math.ceil(scale * BEGINNER_SIZE.height);
+        }
+        windowTitleWidth = BEGINNER_SIZE.width;
+      }
+    }
+
+    WindowSetSize(width, height);
+    setWindowTitleWidth(windowTitleWidth);
+  }, [openOption, difficulty, scale]);
 
   useEffect(() => {
     // Switch the theme when style changes.
@@ -423,6 +440,29 @@ function MineSweeperView({
                 }
               </div>
               <span>Windows 3.1 Style</span>
+              <span className="mine__drop-down__hot-key" />
+              <div className="mine__drop-down__arrow" />
+            </div>
+            <div className="mine__drop-down__separator" />
+            <div className="mine__drop-down__row"
+              onMouseUp={() => setScale(scale === 1.5 ? 1 : 1.5)}
+              onTouchStart={() => setScale(scale === 1.5 ? 1 : 1.5)}
+            >
+              <div className="mine__drop-down__check">
+                {scale === 1.5 && <img src={checked} alt="checked" />}
+              </div>
+              <span>1.5x Scale</span>
+              <span className="mine__drop-down__hot-key" />
+              <div className="mine__drop-down__arrow" />
+            </div>
+            <div className="mine__drop-down__row"
+              onMouseUp={() => setScale(scale === 2 ? 1 : 2)}
+              onTouchStart={() => setScale(scale === 2 ? 1 : 2)}
+            >
+              <div className="mine__drop-down__check">
+                {scale === 2 && <img src={checked} alt="checked" />}
+              </div>
+              <span>2x Scale</span>
               <span className="mine__drop-down__hot-key" />
               <div className="mine__drop-down__arrow" />
             </div>
