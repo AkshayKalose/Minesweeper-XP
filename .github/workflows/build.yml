@@ -16,7 +16,7 @@ jobs:
         build:
           - name: 'Minesweeper XP'
             platform:  'linux/amd64'
-            os: 'ubuntu-latest'
+            os: 'ubuntu-22.04'
           - name: 'Minesweeper XP'
             platform:  'windows/amd64'
             os: 'windows-latest'
