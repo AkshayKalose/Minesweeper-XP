@@ -21,6 +21,7 @@ function getInitState(difficulty = 'Beginner') {
   return {
     difficulty,
     status: 'new',
+    marks: true,
     ...genGameConfig(Config[difficulty]),
   };
 }
@@ -59,7 +60,11 @@ function reducer(state, action = {}) {
           newState = 'flag';
           break;
         case 'flag':
-          newState = 'unknown';
+          if (state.marks) {
+            newState = 'unknown';
+          } else {
+            newState = 'cover';
+          }
           break;
         case 'unknown':
           newState = 'cover';
@@ -145,6 +150,12 @@ function reducer(state, action = {}) {
       return {
         ...state,
         ceils,
+      };
+    }
+    case 'TOGGLE_MARKS': {
+      return {
+        ...state,
+        marks: !state.marks,
       };
     }
     default:
@@ -238,6 +249,9 @@ function MineSweeper({
     if (['died', 'won'].includes(state.status)) return;
     dispatch({ type: 'OPENING_CEILS', payload: index });
   }
+  function toggleMarks() {
+    dispatch({ type: 'TOGGLE_MARKS' });
+  }
   return (
     <MinesweeperView
       {...state}
@@ -255,6 +269,7 @@ function MineSweeper({
       setWindowTitleWidth={setWindowTitleWidth}
       style={style}
       setStyle={setStyle}
+      toggleMarks={toggleMarks}
     />
   );
 }

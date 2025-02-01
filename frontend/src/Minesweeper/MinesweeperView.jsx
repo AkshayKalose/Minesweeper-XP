@@ -94,6 +94,8 @@ function MineSweeperView({
   setWindowTitleWidth,
   style,
   setStyle,
+  marks,
+  toggleMarks,
 }) {
   const face = useRef(null);
   const dropDown = useRef(null);
@@ -310,9 +312,13 @@ function MineSweeperView({
               <div className="mine__drop-down__arrow" />
             </div>
             <div className="mine__drop-down__separator" />
-            <div className="mine__drop-down__row">
+            <div
+              className="mine__drop-down__row"
+              onMouseUp={toggleMarks}
+              onTouchStart={toggleMarks}
+            >
               <div className="mine__drop-down__check">
-                <img src={checked} alt="checked" />
+                {marks && <img src={checked} alt="checked" />}
               </div>
               <span>Marks (?)</span>
               <span className="mine__drop-down__hot-key" />

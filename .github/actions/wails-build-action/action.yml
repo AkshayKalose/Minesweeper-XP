@@ -233,7 +233,7 @@ runs:
         mkdir build/bin/publish
         mv 'build/bin/${{ inputs.build-name }}.app.zip' "build/bin/publish/$(echo "${{ inputs.build-name }}" | sed "s/ /-/g")-macOS-universal.app.zip"
         mv 'build/bin/${{ inputs.build-name }}.dmg' "build/bin/publish/$(echo "${{ inputs.build-name }}" | sed "s/ /-/g")-macOS-universal-installer.dmg"
-    - uses: actions/upload-artifact@v3
+    - uses: actions/upload-artifact@v4
       if: inputs.package == 'true'
       with:
         name: Wails Build ${{runner.os}} ${{inputs.build-name}}
