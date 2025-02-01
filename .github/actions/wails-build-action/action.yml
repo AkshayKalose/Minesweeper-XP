@@ -152,7 +152,7 @@ runs:
       run: |
         sudo touch /etc/apt/sources.list.d/jammy.list
         echo 'deb http://archive.ubuntu.com/ubuntu jammy main universe' | sudo tee -a /etc/apt/sources.list.d/jammy.list
-        sudo apt-get update && sudo apt-get install libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
+        sudo apt-get update && sudo apt-get upgrade && sudo apt-get install libgtk-3-0 libwebkit2gtk-4.0-dev gcc-aarch64-linux-gnu
       shell: bash
     # Building step
     - name: Build App
