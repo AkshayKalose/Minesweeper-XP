@@ -1,7 +1,10 @@
 name: Wails build
 
 on:
-  pull_request:
+  push:
+    tags:
+      # Match any new tag starting with v
+      - 'v*'
 
 env:
   # Necessary for most environments as build failure can occur due to OOM issues
